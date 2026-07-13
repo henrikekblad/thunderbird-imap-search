@@ -11,14 +11,13 @@ jobs:
   package:
     runs-on: ubuntu-24.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Install packaging tool
         run: sudo apt-get update && sudo apt-get install --yes p7zip-full
       - name: Validate and package
         run: ./scripts/package.sh
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: unsigned-xpi
           path: dist/*.xpi
           if-no-files-found: error
-
