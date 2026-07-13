@@ -34,7 +34,7 @@ The XPI contains the source files directly. There is no transpilation, bundling,
 ./scripts/package.sh
 ```
 
-This requires a POSIX shell and 7-Zip (`7z`). The resulting file is written to `dist/global-imap-server-search-1.0.0.xpi`.
+This requires a POSIX shell and 7-Zip (`7z`). The resulting file is written to `dist/global-imap-server-search-1.0.1.xpi`.
 
 ## Suggested functional test
 

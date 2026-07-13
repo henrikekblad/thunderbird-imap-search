@@ -755,7 +755,10 @@ var globalImapSearch = class extends ExtensionCommon.ExtensionAPI {
         "has:attachment cannot be used with OR because IMAP has no portable attachment predicate."
       );
     }
-    return { clauses, postFilters, folderFilters };
+    const statusClauses = clauses.map(clause =>
+      clause.filter(atom => atom.type === "status")
+    );
+    return { clauses, postFilters, folderFilters, statusClauses };
   }
 
   _term(session, attribute, operation, valueType, value, booleanAnd) {
@@ -946,7 +949,19 @@ var globalImapSearch = class extends ExtensionCommon.ExtensionAPI {
     }
   }
 
-  _passesPostFilters(header, filters) {
+  _statusMatches(header, filter) {
+    const flags = header.flags;
+    let matches;
+    if (filter.status === "starred") {
+      matches = Boolean(flags & Ci.nsMsgMessageFlags.Marked);
+    } else {
+      const isRead = Boolean(flags & Ci.nsMsgMessageFlags.Read);
+      matches = filter.status === "read" ? isRead : !isRead;
+    }
+    return filter.negative ? !matches : matches;
+  }
+
+  _passesPostFilters(header, filters, statusClauses) {
     for (const filter of filters) {
       const attachmentFlag = Ci.nsMsgMessageFlags.Attachment || 0x10000000;
       const hasAttachment = Boolean(header.flags & attachmentFlag);
@@ -954,7 +969,9 @@ var globalImapSearch = class extends ExtensionCommon.ExtensionAPI {
         return false;
       }
     }
-    return true;
+    return statusClauses.some(clause =>
+      clause.every(filter => this._statusMatches(header, filter))
+    );
   }
 
   _result(search, header, folder) {
@@ -967,7 +984,11 @@ var globalImapSearch = class extends ExtensionCommon.ExtensionAPI {
     const identity = `${folder.URI}#${header.messageKey}`;
     if (
       search.seen.has(identity) ||
-      !this._passesPostFilters(header, search.parsed.postFilters)
+      !this._passesPostFilters(
+        header,
+        search.parsed.postFilters,
+        search.parsed.statusClauses
+      )
     ) {
       return;
     }

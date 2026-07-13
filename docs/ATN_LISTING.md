@@ -24,6 +24,10 @@ This extension uses a privileged Thunderbird Experiment API because online IMAP 
 
 Initial public release with global account search, current-folder search, incremental sortable results, cancellation, result limits, Gmail-like query operators, contact/folder/tag/date pickers, native message opening, and persistent preferences.
 
+## Release notes — 1.0.1
+
+Fixes `is:starred`, `is:read`, and `is:unread` returning messages with the wrong state when an IMAP adapter ignores an online status predicate. Returned message headers are now defensively verified while preserving explicit `OR` semantics.
+
 ## Support URL
 
 https://github.com/henrikekblad/thunderbird-imap-search/issues
@@ -48,4 +52,3 @@ Mozilla Public License 2.0
 ## Reviewer notes
 
 Use the contents of `REVIEWER_NOTES.md`. The add-on has no build transformation; `./scripts/package.sh` validates and packages the exact readable files included in the XPI.
-
