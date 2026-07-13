@@ -46,7 +46,7 @@ The results page provides address-book, folder, tag, and ISO date pickers for re
 
 ## Compatibility
 
-The first public release declares Thunderbird 115 through 140 ESR compatibility. Because the extension contains an Experiment API and interacts with Thunderbird internals, compatibility is deliberately capped at `140.*` until newer branches have been tested.
+The first public release declares Thunderbird 115 through 152 compatibility. The toolbar, folder search, server search, results view, and message opening have been successfully exercised on Thunderbird 152. Because the extension contains an Experiment API and interacts with Thunderbird internals, compatibility is deliberately capped at `152.*` until newer branches have been tested.
 
 Betterbird based on a compatible Thunderbird branch is supported on a best-effort basis.
 
@@ -103,4 +103,3 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Bug reports should not include private m
 Global IMAP Server Search is available under the [Mozilla Public License 2.0](LICENSE).
 
 Copyright 2026 Henrik Ekblad / Sensnology AB.
-

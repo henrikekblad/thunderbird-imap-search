@@ -49,3 +49,6 @@ This requires a POSIX shell and 7-Zip (`7z`). The resulting file is written to `
 
 No special server software is required. Dovecot FTS improves server performance but is not a dependency.
 
+## Compatibility testing
+
+The complete search workflow has been exercised successfully on Thunderbird 152 with an IMAP account. The manifest remains capped at `152.*` because the Experiment integrates with version-sensitive internal APIs and native UI elements.
