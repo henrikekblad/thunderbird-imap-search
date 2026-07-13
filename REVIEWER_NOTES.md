@@ -51,4 +51,4 @@ No special server software is required. Dovecot FTS improves server performance 
 
 ## Compatibility testing
 
-The complete search workflow has been exercised successfully on Thunderbird 152 with an IMAP account. The manifest remains capped at `152.*` because the Experiment integrates with version-sensitive internal APIs and native UI elements.
+The complete search workflow has been exercised successfully on Thunderbird 152 with an IMAP account. A clean installation using the production ID `imap-search@sensnology.se` has also been approved and exercised successfully on Betterbird 140.12 ESR, including global and current-folder searches, cancellation, results, and message opening. The manifest remains capped at `152.*` because the Experiment integrates with version-sensitive internal APIs and native UI elements.

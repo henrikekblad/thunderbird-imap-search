@@ -46,7 +46,7 @@ The results page provides address-book, folder, tag, and ISO date pickers for re
 
 ## Compatibility
 
-The first public release declares Thunderbird 115 through 152 compatibility. The toolbar, folder search, server search, results view, and message opening have been successfully exercised on Thunderbird 152. Because the extension contains an Experiment API and interacts with Thunderbird internals, compatibility is deliberately capped at `152.*` until newer branches have been tested.
+The first public release declares Thunderbird 115 through 152 compatibility. The toolbar, folder search, server search, results view, cancellation, and message opening have been successfully exercised on Thunderbird 152 and on Betterbird 140.12 ESR using the production extension ID. Because the extension contains an Experiment API and interacts with Thunderbird internals, compatibility is deliberately capped at `152.*` until newer branches have been tested.
 
 Betterbird based on a compatible Thunderbird branch is supported on a best-effort basis.
 
