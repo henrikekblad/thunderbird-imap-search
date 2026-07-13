@@ -1,0 +1,200 @@
+[
+  {
+    "namespace": "globalImapSearch",
+    "description": "Privileged server-side IMAP search and toolbar integration.",
+    "types": [
+      {
+        "id": "ToolbarRequest",
+        "type": "object",
+        "properties": {
+          "query": { "type": "string" },
+          "windowId": { "type": "number" },
+          "folderURI": { "type": "string", "optional": true }
+        }
+      },
+      {
+        "id": "SearchInfo",
+        "type": "object",
+        "properties": {
+          "searchId": { "type": "string" },
+          "query": { "type": "string" },
+          "accountName": { "type": "string" },
+          "accountKey": { "type": "string" },
+          "scopeFolderURI": { "type": "string" },
+          "scopeFolderName": { "type": "string" },
+          "totalFolders": { "type": "integer" },
+          "maxHits": { "type": "integer" },
+          "includeJunk": { "type": "boolean" }
+        }
+      },
+      {
+        "id": "SearchProgress",
+        "type": "object",
+        "properties": {
+          "searchId": { "type": "string" },
+          "state": { "type": "string" },
+          "folderName": { "type": "string" },
+          "searchedFolders": { "type": "integer" },
+          "totalFolders": { "type": "integer" },
+          "hitCount": { "type": "integer" },
+          "errorCount": { "type": "integer" }
+        }
+      },
+      {
+        "id": "SearchResult",
+        "type": "object",
+        "properties": {
+          "searchId": { "type": "string" },
+          "folderURI": { "type": "string" },
+          "messageKey": { "type": "integer" },
+          "subject": { "type": "string" },
+          "author": { "type": "string" },
+          "recipients": { "type": "string" },
+          "date": { "type": "number" },
+          "folderName": { "type": "string" },
+          "read": { "type": "boolean" },
+          "starred": { "type": "boolean" },
+          "hasAttachment": { "type": "boolean" }
+        }
+      },
+      {
+        "id": "SearchError",
+        "type": "object",
+        "properties": {
+          "folderName": { "type": "string" },
+          "error": { "type": "string" }
+        }
+      },
+      {
+        "id": "SearchSummary",
+        "type": "object",
+        "properties": {
+          "searchId": { "type": "string" },
+          "query": { "type": "string" },
+          "cancelled": { "type": "boolean" },
+          "searchedFolders": { "type": "integer" },
+          "totalFolders": { "type": "integer" },
+          "hitCount": { "type": "integer" },
+          "limitReached": { "type": "boolean" },
+          "errors": {
+            "type": "array",
+            "items": { "$ref": "SearchError" }
+          }
+        }
+      },
+      {
+        "id": "FolderOption",
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "string" },
+          "detail": { "type": "string" }
+        }
+      },
+      {
+        "id": "TagOption",
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "string" },
+          "detail": { "type": "string" },
+          "color": { "type": "string" }
+        }
+      }
+    ],
+    "functions": [
+      {
+        "name": "initialize",
+        "type": "function",
+        "async": true,
+        "parameters": []
+      },
+      {
+        "name": "shutdown",
+        "type": "function",
+        "async": true,
+        "parameters": []
+      },
+      {
+        "name": "startSearch",
+        "type": "function",
+        "async": true,
+        "returns": { "$ref": "SearchInfo" },
+        "parameters": [
+          { "name": "query", "type": "string" },
+          { "name": "windowId", "type": "number", "optional": true },
+          { "name": "maxHits", "type": "integer", "optional": true },
+          { "name": "includeJunk", "type": "boolean", "optional": true },
+          { "name": "folderURI", "type": "string", "optional": true }
+        ]
+      },
+      {
+        "name": "cancelSearch",
+        "type": "function",
+        "async": true,
+        "parameters": [{ "name": "searchId", "type": "string" }]
+      },
+      {
+        "name": "openMessage",
+        "type": "function",
+        "async": true,
+        "parameters": [
+          { "name": "folderURI", "type": "string" },
+          { "name": "messageKey", "type": "integer" },
+          { "name": "openInTab", "type": "boolean", "optional": true }
+        ]
+      },
+      {
+        "name": "listFolders",
+        "type": "function",
+        "async": true,
+        "returns": {
+          "type": "array",
+          "items": { "$ref": "FolderOption" }
+        },
+        "parameters": [
+          { "name": "windowId", "type": "number", "optional": true },
+          { "name": "includeJunk", "type": "boolean", "optional": true }
+        ]
+      },
+      {
+        "name": "listTags",
+        "type": "function",
+        "async": true,
+        "returns": {
+          "type": "array",
+          "items": { "$ref": "TagOption" }
+        },
+        "parameters": []
+      }
+    ],
+    "events": [
+      {
+        "name": "onToolbarSearch",
+        "type": "function",
+        "parameters": [{ "name": "request", "$ref": "ToolbarRequest" }]
+      },
+      {
+        "name": "onSearchProgress",
+        "type": "function",
+        "parameters": [{ "name": "progress", "$ref": "SearchProgress" }]
+      },
+      {
+        "name": "onSearchResult",
+        "type": "function",
+        "parameters": [
+          {
+            "name": "results",
+            "type": "array",
+            "items": { "$ref": "SearchResult" }
+          }
+        ]
+      },
+      {
+        "name": "onSearchComplete",
+        "type": "function",
+        "parameters": [{ "name": "summary", "$ref": "SearchSummary" }]
+      }
+    ]
+  }
+]

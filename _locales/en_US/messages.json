@@ -1,0 +1,4 @@
+{
+  "extensionName": { "message": "Global IMAP Server Search" },
+  "extensionDescription": { "message": "Search every folder of the active IMAP account on the server, without Gloda." }
+}

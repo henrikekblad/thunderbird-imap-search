@@ -1,0 +1,38 @@
+{
+  "manifest_version": 2,
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "version": "1.0.0",
+  "author": "Henrik Ekblad / Sensnology",
+  "homepage_url": "https://github.com/henrikekblad/thunderbird-imap-search",
+  "default_locale": "en_US",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "imap-search@sensnology.se",
+      "strict_min_version": "115.0",
+      "strict_max_version": "140.*"
+    }
+  },
+  "icons": {
+    "16": "icons/search.svg",
+    "32": "icons/search.svg",
+    "64": "icons/search.svg",
+    "128": "icons/search.svg"
+  },
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  "permissions": ["accountsRead", "messagesRead", "addressBooks", "storage", "tabs"],
+  "experiment_apis": {
+    "globalImapSearch": {
+      "schema": "api/globalImapSearch/schema.json",
+      "parent": {
+        "scopes": ["addon_parent"],
+        "paths": [["globalImapSearch"]],
+        "script": "api/globalImapSearch/implementation.js",
+        "events": ["startup"]
+      }
+    }
+  }
+}

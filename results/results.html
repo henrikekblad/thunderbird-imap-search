@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>IMAP Server Search</title>
+    <link rel="stylesheet" href="results.css">
+  </head>
+  <body>
+    <header class="toolbar">
+      <form id="search-form" role="search">
+        <label class="visually-hidden" for="query">Search this IMAP account</label>
+        <input id="query" type="search" autocomplete="off" spellcheck="false"
+               placeholder="Search this IMAP account on the server">
+        <label class="limit-label" for="max-hits">Stop after</label>
+        <select id="max-hits" title="Maximum messages returned">
+          <option value="100">100 results</option>
+          <option value="250" selected>250 results</option>
+          <option value="500">500 results</option>
+          <option value="1000">1,000 results</option>
+          <option value="5000">5,000 results</option>
+        </select>
+        <label id="junk-option" class="junk-option">
+          <input id="include-junk" type="checkbox">
+          Include Spam/Junk/Trash
+        </label>
+        <button id="search-button" type="submit">Search</button>
+        <button id="global-search-button" type="button" hidden>Global Search</button>
+        <button id="cancel-button" type="button" disabled hidden>Stop</button>
+      </form>
+      <div class="syntax" aria-label="Insert a search filter">
+        <span>Insert filter:</span>
+        <button type="button" data-insert="from:">from:</button>
+        <button type="button" data-insert="to:">to:</button>
+        <button type="button" data-insert="subject:">subject:</button>
+        <button type="button" data-insert="body:">body:</button>
+        <button id="folder-filter-button" type="button" data-insert="folder:">folder:</button>
+        <button type="button" data-insert="tag:">tag:</button>
+        <button type="button" data-insert="has:attachment">has:attachment</button>
+        <button type="button" data-insert="before:">before:</button>
+        <button type="button" data-insert="after:">after:</button>
+        <button type="button" data-insert="is:unread">is:unread</button>
+        <button type="button" data-insert="OR">OR</button>
+        <button type="button" data-insert="-">-exclude</button>
+        <span id="date-picker-panel" hidden>
+          <span class="date-entry-row">
+            <label id="date-picker-label" for="date-picker">Choose date</label>
+            <input id="date-picker" type="text" inputmode="numeric"
+                   placeholder="YYYY-MM-DD" maxlength="10"
+                   pattern="\d{4}-\d{2}-\d{2}" aria-describedby="date-picker-error">
+            <button id="date-today" type="button">Today</button>
+          </span>
+          <span id="date-picker-error" role="alert" hidden>Use YYYY-MM-DD</span>
+          <span class="calendar-header">
+            <button id="calendar-previous" type="button" aria-label="Previous month">‹</button>
+            <span class="calendar-period">
+              <button id="calendar-year" type="button" aria-label="Choose year"></button>
+              <span aria-hidden="true">-</span>
+              <button id="calendar-month" type="button" aria-label="Choose month"></button>
+            </span>
+            <button id="calendar-next" type="button" aria-label="Next month">›</button>
+          </span>
+          <span id="calendar-day-view">
+            <span class="calendar-weekdays" aria-hidden="true">
+              <span>Mo</span><span>Tu</span><span>We</span><span>Th</span>
+              <span>Fr</span><span>Sa</span><span>Su</span>
+            </span>
+            <span id="calendar-days" class="calendar-days" role="grid"></span>
+          </span>
+          <span id="calendar-options" class="calendar-options" hidden></span>
+        </span>
+        <span id="people-picker-panel" hidden>
+          <strong id="people-picker-title">Choose person</strong>
+          <span id="people-picker-status">Searching address books…</span>
+          <span id="people-picker-results" role="listbox"></span>
+        </span>
+      </div>
+    </header>
+
+    <main>
+      <section class="summary" aria-live="polite">
+        <div>
+          <h1 id="heading">IMAP Server Search</h1>
+          <p id="status">Enter a query to search the active IMAP account.</p>
+        </div>
+        <div class="counts">
+          <strong id="hit-count">0</strong> messages
+          <span aria-hidden="true">·</span>
+          <span id="folder-count">0 / 0 folders</span>
+        </div>
+      </section>
+
+      <progress id="progress" max="1" value="0" hidden></progress>
+      <details id="errors" hidden>
+        <summary id="errors-summary">Folder errors</summary>
+        <ul id="errors-list"></ul>
+      </details>
+
+      <section class="results" aria-label="Search results">
+        <table>
+          <thead>
+            <tr>
+              <th class="flag-column" aria-label="Status"></th>
+              <th><button type="button" data-sort="subject">Subject</button></th>
+              <th><button type="button" data-sort="author">Correspondent</button></th>
+              <th><button type="button" data-sort="date">Date</button></th>
+              <th><button type="button" data-sort="folderName">Folder</button></th>
+            </tr>
+          </thead>
+          <tbody id="result-body"></tbody>
+        </table>
+        <div id="empty-state">
+          <span class="empty-icon" aria-hidden="true">⌕</span>
+          <p>Results from the IMAP server will appear here.</p>
+        </div>
+      </section>
+    </main>
+    <script src="results.js"></script>
+  </body>
+</html>
