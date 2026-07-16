@@ -1,0 +1,41 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Verify tag matches manifest version
+        shell: bash
+        run: |
+          version=$(node -p "require('./manifest.json').version")
+          test "${GITHUB_REF_NAME}" = "v${version}"
+
+      - name: Install packaging tool
+        run: sudo apt-get update && sudo apt-get install --yes p7zip-full
+
+      - name: Validate and package
+        run: ./scripts/package.sh
+
+      - name: Create checksum
+        run: sha256sum dist/*.xpi > "dist/global-imap-server-search-${GITHUB_REF_NAME#v}.xpi.sha256"
+
+      - name: Publish GitHub release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: >-
+          gh release create "${GITHUB_REF_NAME}"
+          dist/*.xpi
+          dist/*.sha256
+          --repo "${GITHUB_REPOSITORY}"
+          --title "Global IMAP Server Search ${GITHUB_REF_NAME#v}"
+          --generate-notes

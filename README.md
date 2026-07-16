@@ -52,9 +52,18 @@ Betterbird based on a compatible Thunderbird branch is supported on a best-effor
 
 ## Installation
 
-### Thunderbird Add-ons
+### GitHub release
 
-The public listing will be linked here after approval by Thunderbird Add-ons.
+The extension is distributed from the project's [GitHub Releases](https://github.com/henrikekblad/thunderbird-imap-search/releases) page. It cannot currently be listed on Thunderbird Add-ons because new add-ons with unpublished Experiment APIs are temporarily not accepted. The Experiment is required for online IMAP search and integration with Thunderbird's search controls.
+
+1. Download `global-imap-server-search-VERSION.xpi` from the latest release.
+2. Open **Add-ons and Themes** in Thunderbird or Betterbird.
+3. Open the tools menu and choose **Install Add-on From File**.
+4. Select the downloaded XPI and approve the installation.
+
+Thunderbird displays a full/unrestricted-access warning because the extension uses an Experiment API. The extension does not access the operating system or send data to the developer. See [Reviewer notes](REVIEWER_NOTES.md) and the [privacy policy](PRIVACY.md) for details.
+
+GitHub installations do not currently update automatically. Watch the repository or check the Releases page for newer compatible versions before upgrading Thunderbird or Betterbird.
 
 ### Development build
 
@@ -63,7 +72,7 @@ The public listing will be linked here after approval by Thunderbird Add-ons.
 3. Choose **Load Temporary Add-on**.
 4. Select this repository's `manifest.json`.
 
-Experiment extensions display Thunderbird's full/unrestricted-access warning. See [Reviewer notes](REVIEWER_NOTES.md) for why privileged access is required and exactly how it is used.
+Temporary installations are removed when Thunderbird or Betterbird restarts.
 
 ## Build
 
