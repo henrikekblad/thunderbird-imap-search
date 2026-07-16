@@ -44,6 +44,28 @@ Adjacent expressions are combined with AND. A bare expression is grouped as Subj
 
 The results page provides address-book, folder, tag, and ISO date pickers for relevant filters.
 
+## Screenshots
+
+### Global server search
+
+![Global IMAP search results showing sortable messages from an IMAP folder](assets/screenshots/full-result-atn.png)
+
+### Current-folder search
+
+Press Enter in Thunderbird's Quick Filter field to search the current folder directly on the IMAP server.
+
+![Server-side search results restricted to the current Social folder](assets/screenshots/folder-search-atn.png)
+
+### Search helpers
+
+The search page includes quick selectors for ISO dates, folders, and address-book contacts.
+
+| ISO date picker | Folder picker |
+| --- | --- |
+| ![ISO date picker for before and after filters](assets/screenshots/date-picker-atn.png) | ![Folder picker for the folder filter](assets/screenshots/folder-picker-atn.png) |
+
+![Address-book recipient picker for the to filter](assets/screenshots/mailpicker-atn.png)
+
 ## Compatibility
 
 The first public release declares Thunderbird 115 through 152 compatibility. The toolbar, folder search, server search, results view, cancellation, and message opening have been successfully exercised on Thunderbird 152 and on Betterbird 140.12 ESR using the production extension ID. Because the extension contains an Experiment API and interacts with Thunderbird internals, compatibility is deliberately capped at `152.*` until newer branches have been tested.
